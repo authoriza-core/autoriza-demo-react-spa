@@ -364,7 +364,7 @@ curl -H "Authorization: Bearer <access_token>" \
 import jwt
 import requests
 
-jwks = requests.get("https://oidc.authoriza.ru/oidc/.well-known/jwks.json").json()
+jwks = requests.get("https://oidc.authoriza.ru/oidc/jwks").json()
 decoded = jwt.decode(
     token,
     jwks,
