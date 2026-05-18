@@ -13,8 +13,8 @@
 # 🔐 Что такое Авториза?
 
 **Авториза ([https://authoriza.ru/](https://authoriza.ru/))** — сервис аутентификации и
-авторизации, который предоставляет простой и безопасный способ подключения авторизации
-в веб-приложения. Совместим с OpenID Connect.
+авторизации, архитектурный слой, который предоставляет простой и безопасный способ подключения
+авторизации в веб-приложения. Совместим с OpenID Connect.
 
 * локальная инфраструктура (сервера и разработка на территории РФ)
 * OpenID Connect и OAuth2 совместимость (OIDC)
@@ -87,8 +87,10 @@ npm run dev
 > Для реальной разработки лучше использовать `.env`
 
 ```
-export const CLIENT_ID = '2386ed26-7474-412c-ba51-d33d574eca07';
-export const REDIRECT_URI = 'http://localhost:5173/callback';
+export const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
+  || '2386ed26-7474-412c-ba51-d33d574eca07';
+export const REDIRECT_URI = import.meta.env.VITE_REDIRECT_URI
+  || 'http://localhost:5173/callback';
 
 /**  Редко изменяющиеся настройки. В большинстве случаев можно оставить как есть. */
 export const OIDC_PROVIDER = 'https://oidc.authoriza.ru/oidc';
