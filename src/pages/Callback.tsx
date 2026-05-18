@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { exchangeCodeForTokens } from "../feature/auth";
 import { useAuthoriza } from '../feature/auth/ui/AuthorizaProvider';
@@ -9,6 +9,7 @@ import { useAuthoriza } from '../feature/auth/ui/AuthorizaProvider';
 export default function Callback() {
   const navigate = useNavigate();
   const { setTokensFromCallback } = useAuthoriza();
+  const [error, setError] = useState<string | null>(null);
 
   // React.StrictMode в dev дважды монтирует компонент.
   // Поэтому используем ref как флаг — чтобы гарантировать единственный вызов.
@@ -55,10 +56,18 @@ export default function Callback() {
         // 4. После успешного обмена отправляем пользователя на домашнюю страницу
         navigate("/");
       } catch (err) {
+        const errorString = "Ошибка при обмене code → tokens:"
         console.error("Ошибка при обмене code → tokens:", err);
+        setError(`${errorString}${err instanceof Error ? err.message : err}`)
       }
     })();
   }, [navigate, setTokensFromCallback]);
 
-  return <div style={{ padding: 20 }}>Завершаем вход через Authoriza...</div>;
+  return (
+    <div style={{ padding: 20 }}>
+      {
+        error || 'Завершаем вход через Authoriza...'
+      }
+    </div>
+  );
 }
