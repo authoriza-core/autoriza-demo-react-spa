@@ -58,7 +58,7 @@ export default function Callback() {
       } catch (err) {
         const errorString = "Ошибка при обмене code → tokens:"
         console.error("Ошибка при обмене code → tokens:", err);
-        setError(`${errorString}${err instanceof Error ? err.message : err}`)
+        setError(`${errorString} ${err instanceof Error ? err.message : err}`)
       }
     })();
   }, [navigate, setTokensFromCallback]);
